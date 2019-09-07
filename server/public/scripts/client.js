@@ -1,12 +1,12 @@
-console.log('JQ');
-
 $(document).ready(function() {
     // $('#clear').on('click', clearButton);
     $('.operator').on('click', grabOperator);
     $('#equals').on('click', equateButton);
-    showAnswer();
 });
 
+let problem = '';
+let problems = [];
+let equations = [];
 let thisOperator = '';
 let answer = 0;
 
@@ -16,34 +16,37 @@ function equateButton(){
         operator: thisOperator,
         secondnumber: $('#secondNumber').val()
     } 
+    problem = equation.firstnumber+equation.operator+equation.secondnumber;
+    problems.push(problem);
     if(equation.operator == '+'){
-        let objectString = ((+equation.firstnumber)+(+equation.secondnumber));
-        answer = objectString;
+        answer = ((+equation.firstnumber)+(+equation.secondnumber));
     } else if(equation.operator == '-'){
-        let objectString = ((+equation.firstnumber)-(+equation.secondnumber));
-        answer = objectString;
+        answer = ((+equation.firstnumber)-(+equation.secondnumber));
     } else if(equation.operator == '*'){
-        let objectString = ((+equation.firstnumber)*(+equation.secondnumber));
-        answer = objectString;
+        answer = ((+equation.firstnumber)*(+equation.secondnumber));
     } else if(equation.operator == '/'){
-        let objectString = ((+equation.firstnumber)/(+equation.secondnumber));
-        answer = objectString;
+        answer = ((+equation.firstnumber)/(+equation.secondnumber));
     }
     console.log(answer);
-    showAnswer();
+    equations.push(equation);
+    let el = $('#showAnswer');
+    el.empty();
+    el.append(`
+        <h3>${answer}</h3>
+    `)
+    let el2 = $('#showHistory');
+    el2.empty();
+    for(let i = 0; i < problems.length; i++){
+        el2.append(`
+            <h3>${problems[i]}</h3>
+        `)
+    }
 }
+
 
 function grabOperator(){
     thisOperator = $(this).attr('id');
     console.log(thisOperator);
-}
-
-function showAnswer(){
-    let el = $('#showAnswer');
-    el.empty();
-    el.append(`
-        <h2>${answer}</h2>
-    `);
 }
 
 function clearButton(){
