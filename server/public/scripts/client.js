@@ -1,22 +1,29 @@
 console.log('JQ');
 
 $(document).ready(function() {
+    // $('#clear').on('click', clearButton);
+    $('.operator').on('click', grabOperator);
     $('#equals').on('click', equateButton);
-    $('#clear').on('click', clearButton);
+    // 
 });
 
-function grabOperator(){
-    let operator = $(this).attr('id');
-    return operator;
-}
+let thisOperator = '';
 
 function equateButton(){
+    console.log('in equate');
     let equation = {
         firstnumber: $('#firstNumber').val(),
-        secondnumber: $('#secondNumber').val(),
-        operator: grabOperator()
+        grabOperator: thisOperator,
+        secondnumber: $('#secondNumber').val()
     }
     console.log(equation);
+    
+}
+
+function grabOperator(){
+    console.log('in grab');
+    thisOperator = $(this).attr('id');
+    console.log(thisOperator);
 }
 
 function clearButton(){
