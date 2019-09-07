@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    // $('#clear').on('click', clearButton);
+    $('#clear').on('click', clearButton);
     $('.operator').on('click', grabOperator);
     $('#equals').on('click', equateButton);
 });
@@ -51,4 +51,12 @@ function grabOperator(){
 
 function clearButton(){
 
+    answer = 0
+    let el = $('#showAnswer');
+    el.empty();
+    el.append(`
+        <h3>${answer}</h3>
+    `);
+    $('#firstNumber').val('');
+    $('#secondNumber').val('');
 }
