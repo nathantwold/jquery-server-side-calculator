@@ -8,15 +8,19 @@ $(document).ready(function() {
 });
 
 let thisOperator = '';
+let answer = 0;
 
 function equateButton(){
     console.log('in equate');
     let equation = {
         firstnumber: $('#firstNumber').val(),
-        grabOperator: thisOperator,
+        operator: thisOperator,
         secondnumber: $('#secondNumber').val()
     }
     console.log(equation);
+    let objectString = (equation.firstnumber+equation.operator+equation.secondnumber);
+    let answer = parseInt(objectString);
+    console.log(answer);
     
 }
 
