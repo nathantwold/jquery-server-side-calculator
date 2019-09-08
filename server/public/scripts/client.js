@@ -8,6 +8,11 @@ $(document).ready(function() {
 let thisOperator = '';
 
 function sendEquation(){
+    $('.operator').removeClass('currentOp');
+    if($('#firstNumber').val() == '' || $('#secondNumber').val() == ''){
+        alert('enter numbers');
+        return false;
+    }
     let equation = {
         firstnumber: $('#firstNumber').val(),
         operator: thisOperator,
@@ -18,7 +23,6 @@ function sendEquation(){
         url: '/problems',
         data: equation
     }).then(function(response){
-        console.log('back from /problems with: ', response);
         getEquations();
     }).catch(function(err){
         alert(err, 'sendEquation');
@@ -34,7 +38,6 @@ function getEquations(){
         type: 'GET',
         url: '/problems'
     }).then(function(response){
-        console.log('back from server with: ', response);
         let el = $('#showHistory');
         el.empty();
         for(let i = 0; i < response.length; i++){
@@ -52,7 +55,6 @@ function getAnswer(){
         type: 'GET',
         url: '/problems'
     }).then(function(response){
-    console.log('back from server with: ', response);
     let el = $('#showAnswer');
     el.empty();
     el.append(`
@@ -64,11 +66,14 @@ function getAnswer(){
 }
 
 function grabOperator(){
+    $('.operator').removeClass('currentOp');
+    $(this).addClass('currentOp');
     thisOperator = $(this).attr('id');
     console.log(thisOperator);
 }
 
 function clearButton(){
+    $('.operator').removeClass('currentOp');
     let el = $('#showAnswer');
     el.empty();
     el.append(`
