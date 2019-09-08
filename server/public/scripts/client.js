@@ -1,46 +1,51 @@
 $(document).ready(function() {
     $('#clear').on('click', clearButton);
     $('.operator').on('click', grabOperator);
-    $('#equals').on('click', equateButton);
+    $('#equals').on('click', sendEquation);
+    getEquations();
 });
 
-let problem = '';
-let problems = [];
-let equations = [];
 let thisOperator = '';
-let answer = 0;
 
-function equateButton(){
+function sendEquation(){
     let equation = {
         firstnumber: $('#firstNumber').val(),
         operator: thisOperator,
         secondnumber: $('#secondNumber').val()
     } 
-    problem = equation.firstnumber+equation.operator+equation.secondnumber;
-    problems.push(problem);
-    if(equation.operator == '+'){
-        answer = ((+equation.firstnumber)+(+equation.secondnumber));
-    } else if(equation.operator == '-'){
-        answer = ((+equation.firstnumber)-(+equation.secondnumber));
-    } else if(equation.operator == '*'){
-        answer = ((+equation.firstnumber)*(+equation.secondnumber));
-    } else if(equation.operator == '/'){
-        answer = ((+equation.firstnumber)/(+equation.secondnumber));
-    }
-    console.log(answer);
-    equations.push(equation);
-    let el = $('#showAnswer');
-    el.empty();
-    el.append(`
-        <h3>${answer}</h3>
-    `)
-    let el2 = $('#showHistory');
-    el2.empty();
-    for(let i = 0; i < problems.length; i++){
+    $.ajax({
+        type: 'POST',
+        url: '/problems',
+        data: equation
+    }).then(function(response){
+        console.log('back from /problems with: ', response);
+        getEquations();
+    }).catch(function(err){
+        alert(err, 'sendEquation');
+    })
+}
+
+function getEquations(){
+    $.ajax({
+        type: 'GET',
+        url: '/problems'
+    }).then(function(response){
+        console.log('back from server with: ', response);
+        let el = $('#showHistory');
+        let el2 = $('#showAnswer');
+        el.empty();
+        el2.empty();
         el2.append(`
-            <h3>${problems[i]}</h3>
-        `)
-    }
+            <h3>${(response[response.length-1].answer)}</h3>
+             `)
+        for(let i = 0; i < response.length; i++){
+            el.append(`
+                <h3>${response[i].firstnumber+response[i].operator+response[i].secondnumber+'='+response[i].answer}</h3>
+            `)
+        }
+    }).catch(function(err){
+        alert(err, 'getEquations');
+    })
 }
 
 function grabOperator(){
@@ -49,12 +54,8 @@ function grabOperator(){
 }
 
 function clearButton(){
-    answer = 0
-    let el = $('#showAnswer');
-    el.empty();
-    el.append(`
-        <h3>${answer}</h3>
-    `);
+    answer = 0;
+    thisOperator = 0;
     $('#firstNumber').val('');
     $('#secondNumber').val('');
 }
