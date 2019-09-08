@@ -43,14 +43,12 @@ function equateButton(){
     }
 }
 
-
 function grabOperator(){
     thisOperator = $(this).attr('id');
     console.log(thisOperator);
 }
 
 function clearButton(){
-
     answer = 0
     let el = $('#showAnswer');
     el.empty();
