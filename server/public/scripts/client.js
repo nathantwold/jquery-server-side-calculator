@@ -23,6 +23,10 @@ function sendEquation(){
     }).catch(function(err){
         alert(err, 'sendEquation');
     })
+    getAnswer();
+    $('#firstNumber').val('');
+    thisOperator = '';
+    $('#secondNumber').val('');
 }
 
 function getEquations(){
@@ -32,17 +36,28 @@ function getEquations(){
     }).then(function(response){
         console.log('back from server with: ', response);
         let el = $('#showHistory');
-        let el2 = $('#showAnswer');
         el.empty();
-        el2.empty();
-        el2.append(`
-            <h3>${(response[response.length-1].answer)}</h3>
-             `)
         for(let i = 0; i < response.length; i++){
             el.append(`
                 <h3>${response[i].firstnumber+response[i].operator+response[i].secondnumber+'='+response[i].answer}</h3>
             `)
         }
+    }).catch(function(err){
+        alert(err, 'getEquations');
+    })
+}
+
+function getAnswer(){
+    $.ajax({
+        type: 'GET',
+        url: '/problems'
+    }).then(function(response){
+    console.log('back from server with: ', response);
+    let el = $('#showAnswer');
+    el.empty();
+    el.append(`
+        <h3>${(response[response.length-1].answer)}</h3>
+        `)
     }).catch(function(err){
         alert(err, 'getEquations');
     })
@@ -54,8 +69,12 @@ function grabOperator(){
 }
 
 function clearButton(){
-    answer = 0;
-    thisOperator = 0;
+    let el = $('#showAnswer');
+    el.empty();
+    el.append(`
+        <h3>0</h3>
+        `)
+    thisOperator = '';
     $('#firstNumber').val('');
     $('#secondNumber').val('');
 }
