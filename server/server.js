@@ -12,6 +12,15 @@ app.listen(PORT, () => {
     console.log(`Up and running on PORT: ${PORT}`);
 });
 
+app.delete('/problems', (req, res)=>{
+    problems = [];
+    res.send('history deleted');
+});
+
+app.get('/problems', (req, res) => {
+    res.send(problems);
+});
+
 app.post('/problems', (req, res) => {
     problem = req.body.firstnumber+req.body.operator+req.body.secondnumber;
     if(req.body.operator == '+'){
@@ -27,10 +36,3 @@ app.post('/problems', (req, res) => {
     problems.push(req.body);
     res.send('YAY');
 });
-
-app.get('/problems', (req, res) => {
-    res.send(problems);
-});
-
-
-

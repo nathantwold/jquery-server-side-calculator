@@ -38,6 +38,14 @@ button{
     width: 100px;
 }
 
+#deleteButton{
+    font-size: small;   
+    width: 120px;
+    height: 30px;
+    background-color: crimson;
+    color: whitesmoke;
+}
+
 #showAnswer h3{
     border: 1px solid black;
     border-radius: 15px;
