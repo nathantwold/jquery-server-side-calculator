@@ -90,11 +90,11 @@ function sendEquation() {
         data: equation
     }).then(function (response) {
         getEquations();
+        getAnswer();
+        $('#firstNumber').val('');
+        thisOperator = '';
+        $('#secondNumber').val('');
     }).catch(function (err) {
         alert(err, 'sendEquation');
     })
-    getAnswer();
-    $('#firstNumber').val('');
-    thisOperator = '';
-    $('#secondNumber').val('');
 }
