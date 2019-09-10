@@ -5,8 +5,10 @@ body{
 }
 
 h1{
+    color: whitesmoke;
     background-color: darkslategrey;
     margin-top: 0;
+    padding: 25px;
 }
 
 input{
@@ -17,6 +19,10 @@ input{
     text-align: center;
 }
 
+input:hover{
+    background-color: lightgreen;
+}
+
 button{
     font-size: xx-large;
     height: 50px;
@@ -24,13 +30,20 @@ button{
     border-radius: 5px;
 }
 
+button:hover{
+    background-color: green;
+}
+
 .currentOp{
     background-color: green;
 }
 
 #calcContainer{
+    margin-right: 30%;
+    margin-left: 30%;
     text-align: center;
     border: 1px solid black;
+    border-radius: 15px;
 }
 
 #clear{
