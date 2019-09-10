@@ -1,5 +1,6 @@
 body{
-    background-color: aliceblue;
+    background-image: url(../images/mathsImage.jpeg);
+    background-size: cover;
     margin: auto;
     text-align: center;
 }
@@ -44,6 +45,8 @@ button:hover{
     text-align: center;
     border: 1px solid black;
     border-radius: 15px;
+    background-color: lightgreen;
+    opacity: .8;
 }
 
 #clear{
@@ -69,4 +72,5 @@ button:hover{
     margin-right: 30%;
     width: 40%;
     background-color: green;
+    opacity: .9;
 }

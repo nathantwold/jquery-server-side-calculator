@@ -8,6 +8,7 @@ $(document).ready(function () {
 
 let thisOperator = '';
 
+// clears the answer display on DOM and removes operator that's currently selected
 function clearButton() {
     $('.operator').removeClass('currentOp');
     let el = $('#showAnswer');
@@ -20,6 +21,7 @@ function clearButton() {
     $('#secondNumber').val('');
 }
 
+// deletes all calculation history from the server
 function deleteHistory() {
     if (confirm('Are you sure you want to delete calculation history?')) {
         $.ajax({
@@ -34,6 +36,7 @@ function deleteHistory() {
     }
 }
 
+// updates DOM with answer to the last equation sent to server
 function getAnswer() {
     $.ajax({
         type: 'GET',
@@ -49,15 +52,16 @@ function getAnswer() {
     })
 }
 
+// updates calculation history on DOM
 function getEquations() {
     $.ajax({
         type: 'GET',
         url: '/problems'
     }).then(function (response) {
-        let el = $('#showHistory');
-        el.empty();
+        let el2 = $('#showHistory');
+        el2.empty();
         for (let i = 0; i < response.length; i++) {
-            el.append(`
+            el2.append(`
                 <h3>${response[i].firstnumber + response[i].operator + response[i].secondnumber + '=' + response[i].answer}</h3>
             `)
         }
@@ -66,6 +70,7 @@ function getEquations() {
     })
 }
 
+// saves the last selected operator to send to server with equation object for calculation
 function grabOperator() {
     $('.operator').removeClass('currentOp');
     $(this).addClass('currentOp');
@@ -73,6 +78,7 @@ function grabOperator() {
     console.log(thisOperator);
 }
 
+// send equation to server as an object for server to calculate
 function sendEquation() {
     $('.operator').removeClass('currentOp');
     if ($('#firstNumber').val() == '' || thisOperator == '' || $('#secondNumber').val() == '') {

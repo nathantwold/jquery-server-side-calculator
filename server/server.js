@@ -33,5 +33,5 @@ app.post('/problems', (req, res) => {
     } console.log(answer);
     req.body.answer = answer;
     problems.push(req.body);
-    res.send('YAY');
+    res.send('answer sent');
 });
