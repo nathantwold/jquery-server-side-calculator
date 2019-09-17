@@ -1,7 +1,7 @@
 {
   "name": "jquery-server-side-calculator",
   "version": "1.0.0",
-  "description": "Weekend Challenge: Server Side Calculator Welcome to the weekend challenge!",
+  "description": "Weekend Challenge #2: Server Side Calculator",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
